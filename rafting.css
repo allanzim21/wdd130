@@ -1,4 +1,4 @@
-/* Root variables for colors */
+/* ================= ROOT VARIABLES ================= */
 :root {
   --blue-dark: #004080;
   --blue-light: #3399ff;
@@ -9,7 +9,7 @@
   --font-secondary: 'Merriweather', serif;
 }
 
-/* Reset & base */
+/* ================= RESET & BASE ================= */
 * {
   margin: 0;
   padding: 0;
@@ -29,7 +29,7 @@ body {
   margin: 0 auto;
 }
 
-/* Header */
+/* ================= HEADER (GRID REQUIRED) ================= */
 header {
   background-color: var(--blue-dark);
   padding: 15px 0;
@@ -37,27 +37,33 @@ header {
 }
 
 header .container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 150px auto;
   align-items: center;
-  justify-content: space-between;
 }
 
 header img {
   height: 50px;
 }
 
+nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
 nav a {
   color: var(--white);
-  margin-left: 20px;
   text-decoration: none;
   font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 nav a:hover {
   color: var(--blue-light);
 }
 
-/* Hero Section */
+/* ================= HERO SECTION ================= */
 .hero {
   position: relative;
   margin-top: 20px;
@@ -72,18 +78,13 @@ nav a:hover {
   display: block;
 }
 
-/* Blue overlay */
 .hero .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 64, 128, 0.5); /* semi-transparent blue */
+  inset: 0;
+  background-color: rgba(0, 64, 128, 0.5);
   z-index: 1;
 }
 
-/* Hero text */
 .hero h1 {
   position: absolute;
   top: 40%;
@@ -94,9 +95,9 @@ nav a:hover {
   font-size: 3rem;
   z-index: 2;
   text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+  text-align: center;
 }
 
-/* Article inside hero */
 .hero article {
   position: absolute;
   bottom: 30px;
@@ -117,7 +118,6 @@ nav a:hover {
   object-fit: cover;
   margin-right: 15px;
   border-radius: 50%;
-  float: right;
 }
 
 .hero article p {
@@ -125,7 +125,7 @@ nav a:hover {
   color: var(--text-color);
 }
 
-/* Sections */
+/* ================= SECTIONS ================= */
 section {
   background: var(--white);
   margin: 40px 0;
@@ -139,72 +139,103 @@ section h2 {
   font-size: 2rem;
   color: var(--blue-dark);
   margin-bottom: 20px;
+  text-align: center;
 }
 
 section p {
   font-size: 1.1rem;
   color: var(--text-color);
   max-width: 800px;
+  margin: 0 auto 15px auto;
+  text-align: justify;
 }
 
-/* Adventure Images */
-/* Adventure Section Flexbox */
+/* ================= ADVENTURE IMAGES ================= */
 .adventure-images {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 16px;
-  justify-content: center;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .adventure-images img {
-  flex: 1 1 180px;
-  max-width: 220px;
-  height: auto;
+  width: 100%;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
-@media (max-width: 700px) {
-  .adventure-images {
-    gap: 10px;
-  }
-  .adventure-images img {
-    flex-basis: 45%;
-    max-width: 100%;
-  }
+.adventure-images img:hover {
+  transform: scale(1.05);
 }
 
-/* Footer */
+/* ================= FOOTER ================= */
 footer {
   background-color: var(--blue-dark);
   color: var(--white);
   padding: 20px 0;
-  text-align: center;
 }
 
 footer .container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  gap: 20px;
+  flex-wrap: wrap;
 }
 
 footer p {
-  margin-right: 20px;
+  margin: 0;
   font-weight: 500;
   font-size: 1rem;
 }
 
-footer a img {
+footer .social {
+  display: flex;
+  gap: 10px;
+}
+
+footer .social a img {
   height: 30px;
   width: 30px;
   filter: brightness(0) invert(1);
-  transition: filter 0.3s ease;
+  transition: filter 0.3s ease, transform 0.3s ease;
 }
 
-footer a:hover img {
+footer .social a:hover img {
   filter: brightness(0) invert(0.6);
+  transform: scale(1.2);
   cursor: pointer;
 }
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  header .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  nav {
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero article {
+    position: static;
+    margin: 20px auto 0 auto;
+    width: auto;
+    justify-content: center;
+  }
+
+  footer .container {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+}
+
